@@ -1,0 +1,42 @@
+MATRIX MULTIPLICATION using Normal Inner Product Multiplication,STRASSENS MULTIPLICATION
+
+Generate two NxN matrices M1 and M2, with float data type, using built in random number functions, of your dev environment.
+Generate the product M1xM2 using:
+
+1) Standard inner product based row-col multiplication algorithm. (sourcecode = S1, result = M1, Time taken = T1)
+O(n^3)
+
+2)Divide-n-Conquer strategy-based multiplication algorithm. (sourcecode = S2, result = M2, Time taken = T2)
+
+3)Strassen's recursive divide-n-conquer strategy-based algorithm. (sourcecode = S3, result = M3, Time taken = T3)
+4)
+Parallelize O(n^3) Divide-n-Conquer strategy-based multiplication algorithm. (sourcecode = S4, result = M4, Time taken = T4)
+5)Parallelize Strassen's recursive divide-n-conquer strategy-based algorithm. (sourcecode = S5, result = M5, Time taken = T5)
+
+Verify equality of M1, M2, M3, M4, and M5.
+
+Vary the input size to cover the following input sizes N = 16, 32, 64, 128, 256, 512, 1024, 2048, 4096 (nine input sizes N1 to N9) and log the times T1, T2, T3, T4, and T5 and check against theoretical complexity growth expected.
+
+
+
+Outcomes:
+
+1.Indexing of 2d lists.
+2.scope rules 
+3.List comprehensions: 
+4.Formatting of float values so that we can compare eqality of 2 matrices
+5.Indentation's importance
+6.Enable/disable processor cores on your laptop to check and log the performance.
+
+Problems faced:
+1.Indexing errors in loops
+2.Indentation errors
+3.Creating threads 
+
+Better Approaches:
+Use timeit.default_timer instead of timeit.timeit. The former provides the best clock available on your platform and version of Python automatically:
+you will want to use time.perf_counter() for system-wide timing, or time.process_time() for process-wide timing, just the way you used to use time.clock():
+	
+	 	
+Took a look at multiprocessing. 
+Got to know that Python's threads are not suitable for CPU-bound tasks, only for I/O-bound.

@@ -1,0 +1,12 @@
+Implement an interactive representation of the following operations, to manage a Fibonacci Heap. Your implementation should represent the algorithmic details discussed in class, from CLRS. Key values will be entered by the user. Make an attempt to take the sequence of (Op, Parameters) in one go, from the command line or a file in the format { (Create, H), (Insert,H, Key), (Insert,H,Key), (Deletemin,H), (Decreasekey, Heap, Key, delta) ....(Insert, H, Key)...}
+
+The following Ops on Heap ADT to be supported:
+Create_Heap(Heap_Name)
+Insert (Heap_Name, Key)
+Merge_Heap(H1,H2,H3) // Merge Heaps H1 and H2 into H3)
+Find_Min(Heap_Name)
+Extract_Min(Heap_Name)
+Decrease_Key(Heap_Name, Key, Delta)
+Free_Heap(Heap_Name)
+
+

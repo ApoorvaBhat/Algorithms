@@ -1,0 +1,134 @@
+
+ STRING MATCHING ALGORITHMS:
+
+Develop implementations for the interface spec below: 
+Find_Length _of _Text(  txtfile) 
+// normalize multiple blank chars to
+// single blank char and remove(store) // website URLS that have infected
+// text file using FSA based RegEx
+// matcher Find_Pattern (  pattern   , InTextRange, algo)
+ 
+ 
+ 
+// Find the number of occurrences of
+//  pattern using any one of the
+// following  algorithms (2nd parameter) // Rabin-Karp, Knuth_Morris_Pratt
+// Suffix Tree (with Suffix arrays & LCP) //  InTextRange : can be indices or
+// two patterns (e.g two story titles) Build  _Cross_Index( txtfile, algo)// Build an Index (Lex sorted)
+// ( Word , Number of occurrences,
+// List of Story Titles & # of
+// occurrences of  Word)
+Find_Maximal,Palindromes (PalindromeSize, InTextRange )
+ 
+Print_Stats ( )
+ 
+ 
+// List maximal palindromes of size // greater than or equal to
+//  PalindromeSize, with occurrences
+(Story titles and indices )
+// Text Size used, URL infection list
+// Algo Used, Preprocessing time, Search time // (Vary the parameters  pattern ,
+// InTextRange ) for  timing plot
+// and Self Test & Verification outcome
+Provided a simple command line interface to give a demo.
+
+Outcomes:
+
+1. Find_Length_of _Text
+URL RegEx Matcher used to remove the infected URLs in the input file.
+Length of input file after removing URLs 222557.
+http://foo.com/blah_blah
+https://foo.com/blah_blah
+http://foo.com/blah_blah/
+http://foo.com/blah_blah_(wikipedia)
+http://foo.com/blah_blah_(wikipedia)_(again)
+http://www.example.com/wpstyle/?p=364
+https://www.example.com/foo/?bar=baz&inga=42&quux
+http://142.42.1.1/
+http://142.42.1.1:8080/
+http://foo.com/blah_(wikipedia)#cite-1
+http://foo.com/blah_(wikipedia)_blah#cite-1
+http://foo.com/(something)?after=parens
+http://code.google.com/events/#&product=browser
+http://j.mp
+ftp://foo.bar/baz
+ftp://foo.bar/bla
+http://foo.bar/?q=Test%20URL-encoded%20stuff
+http://1337.net
+http://a.b-c.de
+http://223.255.255.254
+
+
+2. Find_Pattern
+Implementation of pattern matching using;
+Rabin-Karp algorithm with a radix of 26 and a prime 101
+Knuth_Morris_Pratt algorithm
+Suffix Array LCP implementation of a Suffix Tree, binary search prefix-matching on the suffix array and then a neighbour scan to return a list of shifts.
+3. Build_Cross_Index
+The input file is processed, striping off any punctuations. Then, each word is extracted and the shifts of the same are found using the Find_Pattern algorithms.
+4. Find_Maximal_Palindromes
+Maximal Palindrome is found by creating a generalized suffix tree of the string and its reverve.
+e.g Suffix Array of MADAM is
+[('ADAM', 1), ('AM', 3), ('DAM', 2), ('M', 4), ('MADAM', 0)]
+When we add the reverse of the given string, we also, add along an indicator of the same
+[('ADAM', 1, 'str'), ('ADAM', 1, 'rev'), ('AM', 3, 'str'), ('AM', 3, 'rev'), ('DAM', 2, 'str'), ('DAM', 2,'rev'),('M', 4, 'str'), ('M', 4, 'rev'), ('MADAM', 0, 'str'), ('MADAM', 0, 'rev')]
+A palindrome of size n in the original string means that there are two adjacent entries with labels ‘str’ and ‘rev’ with a common prefix of size n, except for a few cases.(We do get some stray false positives, but false negatives never occur)
+Such a common prefix array would be
+[4, 1, 2, 0, 3, 0, 1, 1, 5]
+All the results in this step are again screened w.r.t to the min size entered, and then the filtered ones are checked for correctness and returned.
+Output:
+Length of input file after removing URLs 222557
+Time  6.645581960678101
+Input the range of indices
+1
+10000
+Enter the text to be searched
+the
+Suffix Tree Construction Time 12.809452295303345
+Suffix Tree Matching
+ [67, 117, 205, 214, 329, 378, 400, 460, 512, 562, 614, 668, 869, 904, 1022, 114
+6, 1168, 1200, 1470, 1585, 1639, 1661, 1818, 1962, 2145, 2211, 2268, 2337, 2547,
+ 2710, 2755, 2998, 3087, 3122, 3180, 3213, 3273, 3316, 3344, 3360, 3381, 3413, 3
+461, 3520, 3537, 3586, 3624, 3635, 3651, 3666, 3674, 3747, 3798, 3901, 4246, 437
+6, 4413, 4435, 4478, 4509, 4543, 4557, 4588, 4614, 4649, 4671, 4825, 4903, 4916,
+ 4926, 4933, 4942, 4951, 4965, 4975, 4987, 5013, 5110, 5130, 5159, 5171, 5194, 5
+252, 5383, 5399, 5423, 5445, 5467, 5642, 5687, 5858, 5930, 5944, 5988, 6140, 619
+4, 6216, 6229, 6377, 6448, 6544, 6704, 6900, 6931, 7019, 7190, 7251, 7278, 7341,
+ 7389, 7496, 7565, 7814, 7925, 7962, 8073, 8078, 8168, 8225, 8274, 8338, 8373, 8
+383, 8429, 8552, 8683, 8763, 8854, 8879, 8944, 8968, 9070, 9094, 9196, 9220, 930
+6, 9360, 9455, 9496, 9528, 9589, 9698, 9716, 9733, 9755, 9774, 9787, 9809, 9818,
+ 9838, 9937, 9948, 9985]
+Time  12.879465818405151
+Knuth_Morris_Pratt Matching
+ [67, 117, 205, 214, 329, 378, 400, 460, 512, 562, 614, 668, 869, 904, 1022, 114
+6, 1168, 1200, 1470, 1585, 1639, 1661, 1818, 1962, 2145, 2211, 2268, 2337, 2547,
+ 2710, 2755, 2998, 3087, 3122, 3180, 3213, 3273, 3316, 3344, 3360, 3381, 3413, 3
+461, 3520, 3537, 3586, 3624, 3635, 3651, 3666, 3674, 3747, 3798, 3901, 4246, 437
+6, 4413, 4435, 4478, 4509, 4543, 4557, 4588, 4614, 4649, 4671, 4825, 4903, 4916,
+ 4926, 4933, 4942, 4951, 4965, 4975, 4987, 5013, 5110, 5130, 5159, 5171, 5194, 5
+252, 5383, 5399, 5423, 5445, 5467, 5642, 5687, 5858, 5930, 5944, 5988, 6140, 619
+4, 6216, 6229, 6377, 6448, 6544, 6704, 6900, 6931, 7019, 7190, 7251, 7278, 7341,
+ 7389, 7496, 7565, 7814, 7925, 7962, 8073, 8078, 8168, 8225, 8274, 8338, 8373, 8
+383, 8429, 8552, 8683, 8763, 8854, 8879, 8944, 8968, 9070, 9094, 9196, 9220, 930
+6, 9360, 9455, 9496, 9528, 9589, 9698, 9716, 9733, 9755, 9774, 9787, 9809, 9818,
+ 9838, 9937, 9948, 9985]
+Time  0.0050203800201416016
+RabinKarp Matching
+ [67, 117, 205, 214, 329, 378, 400, 460, 512, 562, 614, 668, 869, 904, 1022, 114
+6, 1168, 1200, 1470, 1585, 1639, 1661, 1818, 1962, 2145, 2211, 2268, 2337, 2547,
+ 2710, 2755, 2998, 3087, 3122, 3180, 3213, 3273, 3316, 3344, 3360, 3381, 3413, 3
+461, 3520, 3537, 3586, 3624, 3635, 3651, 3666, 3674, 3747, 3798, 3901, 4246, 437
+6, 4413, 4435, 4478, 4509, 4543, 4557, 4588, 4614, 4649, 4671, 4825, 4903, 4916,
+ 4926, 4933, 4942, 4951, 4965, 4975, 4987, 5013, 5110, 5130, 5159, 5171, 5194, 5
+252, 5383, 5399, 5423, 5445, 5467, 5642, 5687, 5858, 5930, 5944, 5988, 6140, 619
+4, 6216, 6229, 6377, 6448, 6544, 6704, 6900, 6931, 7019, 7190, 7251, 7278, 7341,
+ 7389, 7496, 7565, 7814, 7925, 7962, 8073, 8078, 8168, 8225, 8274, 8338, 8373, 8
+383, 8429, 8552, 8683, 8763, 8854, 8879, 8944, 8968, 9070, 9094, 9196, 9220, 930
+6, 9360, 9455, 9496, 9528, 9589, 9698, 9716, 9733, 9755, 9774, 9787, 9809, 9818,
+ 9838, 9937, 9948, 9985]
+Time  0.020000219345092773
+Enter the limit for palindrome size
+5
+[' \n \n ', ' did ', ' did ', 'dered', 'divid', 'eitie', 'er\nre', 'gnizing', 'o
+f fo', 'ot to', 's a s', 's a s', 'ssess', 'tilit', 'y did y']
+
